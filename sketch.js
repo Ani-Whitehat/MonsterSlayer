@@ -77,7 +77,7 @@ function setup(){
      background(163,73,164);
      Engine.update(engine);
      
-     console.log(slayer.position.x)
+     
      
 
      ground1.display();
@@ -111,12 +111,14 @@ function setup(){
      monster13.display();
      monster14.display();
      monster15.display();
+     
 
      imageMode(CENTER);
      image(slayerimg,slayer.position.x,slayer.position.y,80,140);
      
      
      drawSprites();
+     
  }
 
  function keyPressed(){
@@ -136,11 +138,10 @@ function setup(){
         Arrow.y = slayer.position.y;
         Arrow.scale = 0.1;
         Arrow.velocityX = 5;
-        ArrowGrp.add(Arrow)
+        ArrowGrp.add(Arrow);
         if(ArrowGrp.isTouching(monster1) || ArrowGrp.isTouching(monster2) || ArrowGrp.isTouching(monster3) || ArrowGrp.isTouching(monster4) || ArrowGrp.isTouching(monster5) || ArrowGrp.isTouching(monster6) || ArrowGrp.isTouching(monster7) || ArrowGrp.isTouching(monster8) || ArrowGrp.isTouching(monster9) || ArrowGrp.isTouching(monster10) || ArrowGro.isTouching(monster12) || ArrowGrp.isTouching(monster13) || ArrowGrp.isTouching(monster14) || ArrowGrp.isTouching(monster15)){
            ArrowGrp.destroyEach(); 
-           World.remove(world,monster1)
+           World.remove(world,monster1);
         }
-        
     }
  }
