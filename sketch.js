@@ -114,6 +114,6 @@ function setup(){
  function keyPressed(){
     if (keyCode === 32){
         Matter.Body.applyForce(slayer,slayer.position,{y:-5});
-        slayer.velocityY = -5
+        
     }
  }
