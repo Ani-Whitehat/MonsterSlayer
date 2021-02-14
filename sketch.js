@@ -12,10 +12,13 @@ var monster12,monster13,monster14,monster15;
 
 var engine,world;
 var slayer,slayerimg;
-var Arrow;
+var Arrow,Arrowimg;
+var ArrowGrp;
 
 function preload(){
 slayerimg = loadImage("Slayer.png");
+Arrowimg = loadImage("Arrow.jpg")
+
 }
 
 function setup(){
@@ -23,6 +26,8 @@ function setup(){
 
     engine = Engine.create();
     world = engine.world;
+     
+    ArrowGrp = new Group();
 
     ground1 = new Ground(660,162,130,15);
     ground2 = new Ground(900,365,130,15);
@@ -58,10 +63,12 @@ function setup(){
     monster15 = new Monster(645,395,50,50);
 
     var options={
-        isStatic: false
+        isStatic: false,
+        density: 1,
+        restitution: 0.4
     }
      rectMode(CENTER)
-     slayer = Bodies.rectangle(90,130,180,40,options);
+     slayer = Bodies.rectangle(104,600,180,40,options);
      World.add(world,slayer);
      fill("red");
 
@@ -70,7 +77,7 @@ function setup(){
      background(163,73,164);
      Engine.update(engine);
      
-     console.log(slayer.position.x);
+     console.log(slayer.position.x)
      
 
      ground1.display();
@@ -109,11 +116,31 @@ function setup(){
      image(slayerimg,slayer.position.x,slayer.position.y,80,140);
      
      
+     drawSprites();
  }
 
  function keyPressed(){
-    if (keyCode === 32){
-        Matter.Body.applyForce(slayer,slayer.position,{y:-5});
+    if (keyCode === 38){
+        Matter.Body.applyForce(slayer,slayer.position,{x:10,y:-100});
+    }
+    if (keyCode === 37){
+        Matter.Body.applyForce(slayer,slayer.position,{x:-50,y:-1});
+    }
+    if (keyCode === 39){
+        Matter.Body.applyForce(slayer,slayer.position,{x:50,y:-1});
+    }
+    if(keyCode === 32){
+        Arrow = createSprite(300,300,50,10)
+        Arrow.addImage(Arrowimg);
+        Arrow.x = slayer.position.x;
+        Arrow.y = slayer.position.y;
+        Arrow.scale = 0.1;
+        Arrow.velocityX = 5;
+        ArrowGrp.add(Arrow)
+        if(ArrowGrp.isTouching(monster1) || ArrowGrp.isTouching(monster2) || ArrowGrp.isTouching(monster3) || ArrowGrp.isTouching(monster4) || ArrowGrp.isTouching(monster5) || ArrowGrp.isTouching(monster6) || ArrowGrp.isTouching(monster7) || ArrowGrp.isTouching(monster8) || ArrowGrp.isTouching(monster9) || ArrowGrp.isTouching(monster10) || ArrowGro.isTouching(monster12) || ArrowGrp.isTouching(monster13) || ArrowGrp.isTouching(monster14) || ArrowGrp.isTouching(monster15)){
+           ArrowGrp.destroyEach(); 
+           World.remove(world,monster1)
+        }
         
     }
  }
